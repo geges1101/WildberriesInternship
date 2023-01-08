@@ -13,6 +13,16 @@ type ElasticRepository struct {
 	client *elastic.Client
 }
 
+func (r *ElasticRepository) InsertMessage(ctx context.Context, data model.Data) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (r *ElasticRepository) SearchMessage(ctx context.Context, query string, skip uint64, take uint64) ([]model.Data, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
 func NewElastic(url string) (*ElasticRepository, error) {
 	client, err := elastic.NewClient(
 		elastic.SetURL(url),
