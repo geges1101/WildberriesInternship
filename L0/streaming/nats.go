@@ -54,6 +54,9 @@ func (ob *Connection) OnCreate(f func(message NewMessage)) (err error) {
 		if err := ob.readMessage(msg.Data, &m); err != nil {
 			log.Fatal(err)
 		}
+		if (!CompareJSONToStruct(msg.Data, Order{})) {
+			log.Fatal(err)
+		}
 		f(m)
 	})
 	return
