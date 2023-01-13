@@ -1,22 +1,28 @@
-package L1
+package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
+
+func read(a chan int, b chan int, nums []int) {
+	for _, x := range nums {
+		a <- x
+		b <- x * 2
+	}
+}
 
 func main() {
-	start := time.Now()
-	numbers := []uint8{2, 4, 6, 8, 10}
-	go func() {
-		for i := 0; i < len(numbers); i++ {
-			fmt.Println(i)
-		}
-	}()
+	a := make(chan int)
+	b := make(chan int)
+	length := 0
+	fmt.Println("Enter the number of inputs")
+	fmt.Scanln(&length)
+	fmt.Println("Enter the inputs")
+	numbers := make([]int, length)
+	for i := 0; i < length; i++ {
+		fmt.Scanln(&numbers[i])
+	}
 
-	elapsedTime := time.Since(start)
+	go read(a, b, numbers)
 
-	fmt.Println("Total Time For Execution: " + elapsedTime.String())
-
-	time.Sleep(time.Second)
+	res := <-b
+	fmt.Printf(string(rune(res)))
 }
