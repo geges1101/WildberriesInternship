@@ -1,12 +1,28 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
+func validate(s string) bool {
+	m := make(map[string]int)
+
+	for i := 0; i != len(s); i++ {
+		c := strings.ToLower(string(s[i]))
+		if m[c] == 0 {
+			m[c]++
+			continue
+		}
+		if m[c] > 0 {
+			return false
+		}
+	}
+	return true
+}
 
 func main() {
-	arr := [5]string{"cat", "cat", "dog", "cat", "tree"}
-	collection := make(map[string]int)
-	for _, word := range arr {
-		collection[word]++
-	}
-	fmt.Println(collection)
+	var s string
+	fmt.Scanln(&s)
+	fmt.Println(validate(s))
 }
